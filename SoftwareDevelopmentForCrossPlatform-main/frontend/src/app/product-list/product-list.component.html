@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>รายการสินค้า (จาก C# Web API)</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ชื่อสินค้า</th>
+        <th>รายละเอียด</th>
+        <th>ราคา</th>
+        <th>คงเหลือ</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products">
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.description }}</td>
+        <td>{{ p.price | number:'1.2-2' }}</td>
+        <td>{{ p.stock }}</td>
+        <td>
+          <button (click)="deleteProduct(p.id)">ลบ</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>เพิ่มสินค้าใหม่</h3>
+  <form (ngSubmit)="addProduct()" class="add-form">
+    <input type="text" placeholder="ชื่อสินค้า" [(ngModel)]="newProduct.name" name="name" required />
+    <input type="text" placeholder="รายละเอียด" [(ngModel)]="newProduct.description" name="description" />
+    <input type="number" placeholder="ราคา" [(ngModel)]="newProduct.price" name="price" />
+    <input type="number" placeholder="จำนวนคงเหลือ" [(ngModel)]="newProduct.stock" name="stock" />
+    <button type="submit">เพิ่มสินค้า</button>
+  </form>
+</div>

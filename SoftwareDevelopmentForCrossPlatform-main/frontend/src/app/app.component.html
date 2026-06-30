@@ -1,0 +1,13 @@
+<div style="padding: 20px; font-family: Arial, sans-serif;">
+  
+  <div class="menu-container">
+    <button (click)="view = 'products'" [style.font-weight]="view === 'products' ? 'bold' : 'normal'">จัดการสินค้า</button>
+    <button (click)="view = 'requests'" [style.font-weight]="view === 'requests' ? 'bold' : 'normal'">รายการแจ้งซ่อม</button>
+  </div>
+
+  <hr class="divider">
+
+  <app-product-list *ngIf="view === 'products'"></app-product-list>
+  <app-request-list *ngIf="view === 'requests'"></app-request-list>
+  
+</div>

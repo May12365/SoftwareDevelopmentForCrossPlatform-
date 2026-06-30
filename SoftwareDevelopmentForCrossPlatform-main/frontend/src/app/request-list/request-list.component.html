@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>รายการแจ้งซ่อม (จาก C# Web API)</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>รหัสคำขอ</th>
+        <th>เลขที่คำขอ</th>
+        <th>หัวข้อ</th>
+        <th>รายละเอียด</th>
+        <th>สถานที่</th>
+        <th>หมวดหมู่</th>
+        <th>สถานะ</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of repairRequests">
+        <td>{{ r.request_id }}</td>
+        <td>{{ r.request_no }}</td>
+        <td>{{ r.title }}</td>
+        <td>{{ r.decription }}</td> <td>{{ r.location }}</td>
+        <td>{{ r.category }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+          <button (click)="deleteRequest(r.request_id)">ลบ</button>
+        </td>
+      </tr>
+      <tr *ngIf="repairRequests.length === 0">
+        <td colspan="8" style="text-align: center;">ไม่มีข้อมูลการแจ้งซ่อม</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>แจ้งซ่อมใหม่</h3>
+  <form (ngSubmit)="addRequest()" class="add-form">
+    <input type="text" placeholder="เลขที่คำขอ (เช่น REQ-001)" [(ngModel)]="newRequest.request_no" name="request_no" required />
+    <input type="text" placeholder="หัวข้อแจ้งซ่อม" [(ngModel)]="newRequest.title" name="title" required />
+    <input type="text" placeholder="รายละเอียดอาการเสีย" [(ngModel)]="newRequest.decription" name="decription" />
+    <input type="text" placeholder="สถานที่ / ห้อง" [(ngModel)]="newRequest.location" name="location" />
+    <input type="text" placeholder="หมวดหมู่ (Hardware/Software)" [(ngModel)]="newRequest.category" name="category" />
+    <input type="text" placeholder="สถานะ (เช่น Pending)" [(ngModel)]="newRequest.status" name="status" />
+    
+    <input type="number" placeholder="รหัสผู้แจ้งซ่อม" [(ngModel)]="newRequest.requester_id" name="requester_id" />
+    <input type="number" placeholder="รหัสผู้อนุมัติ" [(ngModel)]="newRequest.approver_id" name="approver_id" />
+    <input type="number" placeholder="รหัสช่างเทคนิค" [(ngModel)]="newRequest.technician_id" name="technician_id" />
+
+    <button type="submit">ส่งข้อมูลแจ้งซ่อม</button>
+  </form>
+</div>
